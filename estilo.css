@@ -1,0 +1,235 @@
+/* --- UNIFICACIÓN DE ESTILOS TOTAL: YAKO MUNDO MASCOTAS --- */
+
+/* 1. ESTILOS GENERALES Y FUENTES */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* 2. CATEGORÍAS CIRCULARES (RESPONSIVAS) */
+.categorias-visuales {
+    padding: 20px;
+}
+
+.contenedor-circulos {
+    display: flex; 
+    justify-content: center; 
+    gap: 40px; 
+    flex-wrap: wrap; 
+    margin-bottom: 50px;
+}
+
+.circulo-item {
+    text-align: center; 
+    width: 150px; 
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+}
+
+.circulo-img-wrapper {
+    width: 150px; 
+    height: 150px; 
+    background: #fff; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+    margin-bottom: 15px; 
+    overflow: hidden; 
+    transition: transform 0.3s ease;
+}
+
+.circulo-img-wrapper:hover {
+    transform: scale(1.1); /* Efecto de crecimiento al pasar el mouse */
+}
+
+/* Ajuste de círculos para celulares */
+@media (max-width: 600px) {
+    .contenedor-circulos { gap: 20px; }
+    .circulo-img-wrapper { width: 120px; height: 120px; }
+    .circulo-item { width: 120px; }
+}
+
+/* 3. GRILLA DE PRODUCTOS (4 COLUMNAS PC, 2 TABLET, 1 CELULAR) */
+.productos-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 Columnas en Computador */
+    gap: 20px;
+    padding: 20px 0;
+}
+
+@media (max-width: 1024px) { 
+    .productos-grid { grid-template-columns: repeat(2, 1fr); } /* 2 Columnas en Tablet */
+}
+
+@media (max-width: 600px) { 
+    .productos-grid { grid-template-columns: repeat(1, 1fr); } /* 1 Columna en Celular */
+}
+
+/* 4. TARJETA DE PRODUCTO */
+.producto-card {
+    display: none; /* Controlado por el JS de "Cargar más" */
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.producto-img img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.producto-img-link:hover img {
+    transform: scale(1.05);
+}
+
+/* 5. SISTEMA DE CARGA (BOTÓN) */
+.contenedor-boton-cargar {
+    text-align: center;
+    margin: 40px 0;
+    width: 100%;
+}
+
+.btn-cargar-mas {
+    background-color: #f8f9fa;
+    color: #0056b3;
+    border: 1px solid #0056b3;
+    padding: 12px 35px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.btn-cargar-mas:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+/* 6. CARRITO Y MODAL (RESPONSIVO) */
+.modal-carrito-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 9999;
+    justify-content: flex-end;
+}
+
+.modal-content {
+    background: white;
+    width: 100%;
+    max-width: 450px; /* En PC */
+    height: 100%;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 600px) {
+    .modal-content { max-width: 100%; } /* En celular ocupa todo el ancho */
+}
+
+/* 7. CONTROLES DE CANTIDAD (+ / -) */
+.controles-cantidad {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.btn-cant {
+    background: #040753;
+    color: white;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.input-cant {
+    width: 50px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+/* 8. BANNER Y MÉTODOS DE PAGO */
+.banner-pequeno-horizontal {
+    width: 90%;
+    max-width: 1000px;
+    height: 150px;
+    margin: 20px auto;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.banner-pequeno-horizontal img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.seccion-pagos {
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 15px;
+    text-align: center;
+}
+
+.pago-logo {
+    height: 35px;
+    margin: 0 10px;
+}
+/* --- ANIMACIÓN DE VALLA INFINITA --- */
+.carrusel-track {
+    display: flex;
+    width: calc(250px * 8); /* Ajusta según el ancho de tus items */
+    animation: scroll Infinito 20s linear infinite;
+}
+
+.contenedor-circulos {
+    display: flex;
+    gap: 40px;
+    padding: 0 20px;
+}
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* Se mueve hasta la mitad y reinicia */
+}
+
+/* Pausar cuando el mouse está encima */
+.carrusel-track:hover {
+    animation-play-state: paused;
+}
+
+/* Estilo de los textos en el carrusel */
+.circulo-item p {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
