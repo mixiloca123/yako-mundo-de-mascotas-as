@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yako Mundo Mascotas - Juguetería Premium</title>
+    <style>
+        /* --- ANIMACIÓN ESPECTACULAR DE ENTRADA --- */
+        #pantalla-carga {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1a1a2e; /* Fondo oscuro para que resalte el color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            overflow: hidden;
+            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        /* Cuando se va, se desliza hacia arriba como una cortina */
+        #pantalla-carga.oculto {
+            transform: translateY(-100%);
+        }
+
+        .contenedor-intro {
+            text-align: center;
+            z-index: 10;
+            padding: 20px;
+        }
+
+        .texto-brillante {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3.5em;
+            color: #fff;
+            text-shadow: 0 0 10px #4ECDC4, 0 0 20px #4ECDC4, 0 0 40px #4ECDC4;
+            animation: glow 2s infinite alternate;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #4ECDC4, 0 0 20px #4ECDC4; }
+            to { text-shadow: 0 0 20px #FF6B6B, 0 0 40px #FF6B6B, 0 0 60px #FF6B6B; }
+        }
+
+        /* Juguetes cayendo */
+        .caida-objeto {
+            position: absolute;
+            top: -50px;
+            font-size: 2rem;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+
+        /* --- ESTILOS DE LA TIENDA --- */
+        :root {
+            --color-principal: #FF6B6B;
+            --color-secundario: #4ECDC4;
+            --color-fondo: #fcfaf0;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--color-fondo);
+            background-image: url('https://www.transparenttextures.com/patterns/paws.png');
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: #fff;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            border: 5px solid var(--color-secundario);
+        }
+
+        header h1 {
+            font-family: 'Fredoka One', cursive;
+            color: var(--color-principal);
+            font-size: 3.5em;
+            margin: 0;
+        }
+
+        .estanteria {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .juguete-card {
+            background: white;
+            border-radius: 30px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            border: 2px solid #eee;
+        }
+
+        .juguete-card:hover {
+            transform: scale(1.05);
+            border-color: var(--color-principal);
+            box-shadow: 0 15px 35px rgba(255,107,107,0.2);
+        }
+
+        .promo-tag {
+            background: #FFD93D;
+            color: #333;
+            padding: 8px 15px;
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-weight: bold;
+            border-radius: 20px;
+            font-family: 'Fredoka One', cursive;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .img-container {
+            width: 100%;
+            height: 200px;
+            background: #fdfdfd;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .img-container img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .juguete-card h3 {
+            font-family: 'Fredoka One', cursive;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+
+        .tallas-btns {
+            margin: 15px 0;
+        }
+
+        .btn-talla {
+            background: #f0f0f0;
+            border: none;
+            padding: 8px 12px;
+            margin: 2px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-talla:hover {
+            background: var(--color-secundario);
+            color: white;
+        }
+
+        .precio {
+            font-size: 2em;
+            color: var(--color-principal);
+            font-family: 'Fredoka One', cursive;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .btn-llave {
+            background: linear-gradient(135deg, #1e90ff, #007bff);
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-llave:hover {
+            filter: brightness(1.1);
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="pantalla-carga">
+        <div id="contenedor-lluvia"></div>
+        <div class="contenedor-intro">
+            <h2 class="texto-brillante">
+                Disfruta y mira<br>
+                Tienda Juguetes Yako Mundo Mascotas<br>
+                Compra tu mejor amigo 🐾
+            </h2>
+        </div>
+    </div>
+
+    <header>
+        <h1>🎪 Yako Mundo Mascotas 🎪</h1>
+        <p style="font-size: 1.2em; color: #666;">¡Calidad y diversión para los peluditos de la casa!</p>
+    </header>
+
+    <div class="estanteria" id="estanteria">
+        </div>
+
+    <script>
+        // 1. CREAR LLUVIA DE JUGUETES ANIMADA
+        const contenedorLluvia = document.getElementById('contenedor-lluvia');
+        const iconos = ['🎾', '🦴', '🧸', '🐕', '🦴', '🏐', '🍖', '🐶'];
+
+        function crearObjeto() {
+            const objeto = document.createElement('div');
+            objeto.classList.add('caida-objeto');
+            objeto.innerText = iconos[Math.floor(Math.random() * iconos.length)];
+            objeto.style.left = Math.random() * 100 + "vw";
+            objeto.style.animationDuration = (Math.random() * 2 + 2) + "s"; 
+            objeto.style.opacity = Math.random();
+            
+            contenedorLluvia.appendChild(objeto);
+
+            setTimeout(() => {
+                objeto.remove();
+            }, 4000);
+        }
+
+        // Lanzar objetos cada 150ms
+        const intervaloLluvia = setInterval(crearObjeto, 150);
+
+        // 2. LOGICA PARA MOSTRAR LA TIENDA
+        window.onload = function() {
+            setTimeout(function() {
+                clearInterval(intervaloLluvia);
+                document.getElementById('pantalla-carga').classList.add('oculto');
+            }, 5000); // 5 segundos de animación
+        };
+
+        // 3. DATOS DE LOS 20 JUGUETES
+        const base_img = "https://images.unsplash.com/photo-";
+        const fotos = [
+            "1576201836186-de214921cf1a?w=400", 
+            "1625316708582-7c3873423af9?w=400", 
+            "1610912169871-08f32598be60?w=400", 
+            "1541599866710-4b130a08e08d?w=400", 
+            "1633502848971-da08bd16503c?w=400"
+        ];
+
+        const productos = [
+            { n: "Mordedor Extremo", p: 15.00, t: "S, M, L", pr: "TOP 🔥" },
+            { n: "Peluche Amigo", p: 12.00, t: "Única", pr: "2x1" },
+            { n: "Cuerda Robusta", p: 9.50, t: "M, L, XL", pr: "Oferta" },
+            { n: "Pelota Saltarina", p: 5.99, t: "Pack 2", pr: "Barato" },
+            { n: "Hueso Dental", p: 20.00, t: "M", pr: "Nuevo" },
+            { n: "Frisbee Flexible", p: 14.50, t: "Única", pr: "-15%" },
+            { n: "Lanzador Pro", p: 32.00, t: "Pro", pr: "Ventas" },
+            { n: "Puzzle Mental", p: 28.00, t: "Grande", pr: "Nuevo" },
+            { n: "Pelota Luz LED", p: 18.90, t: "M", pr: "Hot" },
+            { n: "Mordedor Madera", p: 11.00, t: "S, M", pr: "Eco" },
+            { n: "Pato Chillón", p: 16.00, t: "L", pr: "Oferta" },
+            { n: "Anillo Goma", p: 10.50, t: "S, M", pr: "Nuevo" },
+            { n: "Cuerda Triple", p: 13.00, t: "XL", pr: "-20%" },
+            { n: "Pelota Rugosa", p: 7.50, t: "S", pr: "Barato" },
+            { n: "Combo Diversión", p: 40.00, t: "Única", pr: "Pack" },
+            { n: "Mordedor Agua", p: 12.99, t: "M, L", pr: "Nuevo" },
+            { n: "Túnel Plegable", p: 55.00, t: "Extra", pr: "Lujo" },
+            { n: "Alfombra Olfato", p: 26.00, t: "M", pr: "Top" },
+            { n: "Hueso Duradero", p: 8.50, t: "S", pr: "Oferta" },
+            { n: "Set Iniciación", p: 22.00, t: "Puppy", pr: "Pack" }
+        ];
+
+        const estanteria = document.getElementById('estanteria');
+
+        productos.forEach((prod, i) => {
+            const imgActual = base_img + fotos[i % fotos.length];
+            estanteria.innerHTML += `
+                <div class="juguete-card">
+                    <div class="promo-tag">${prod.pr}</div>
+                    <div class="img-container">
+                        <img src="${imgActual}" alt="${prod.n}">
+                    </div>
+                    <h3>${prod.n}</h3>
+                    <div class="tallas-btns">
+                        ${prod.t.split(',').map(t => `<button class="btn-talla">${t.trim()}</button>`).join('')}
+                    </div>
+                    <span class="precio">$${prod.p.toFixed(2)}</span>
+                    <button class="btn-llave" onclick="alert('Iniciando pago seguro con LLAVE...')">
+                        🔑 Pagar con llave
+                    </button>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>

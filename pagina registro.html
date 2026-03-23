@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Mascota</title>
+    <style>
+        :root { --principal: #ffcc00; --fondo: #f4f4f9; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--fondo); display: flex; justify-content: center; padding: 20px; }
+        
+        .card { background: white; border-radius: 20px; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 380px; text-align: center; }
+        
+        .foto-container { width: 130px; height: 130px; border-radius: 50%; background: #eee; margin: 0 auto 15px; border: 4px solid var(--principal); overflow: hidden; position: relative; }
+        .foto-container img { width: 100%; height: 100%; object-fit: cover; }
+        
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
+        
+        /* El cuadro de la vendedora */
+        #status-box { 
+            background: #fffdf2; border: 2px dashed var(--principal); border-radius: 15px; 
+            padding: 20px; margin: 20px 0; min-height: 100px; transition: all 0.3s ease;
+        }
+
+        .btn-accion { 
+            background: var(--principal); border: none; padding: 15px; width: 100%; 
+            border-radius: 30px; font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.2s;
+        }
+        .btn-accion:hover { transform: scale(1.02); opacity: 0.9; }
+
+        /* Animación de carga */
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid var(--principal); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 10px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2 style="margin-top:0">🐾 Registro</h2>
+    
+    <div class="foto-container" id="preview-box">
+        <span id="text-foto" style="line-height:130px; color:#999; font-size: 0.8rem;">FOTO PERRITO</span>
+        <img id="img-perrito" src="" style="display:none">
+    </div>
+    <input type="file" id="input-foto" accept="image/*" onchange="leerFoto(this)">
+
+    <input type="text" id="nombreCliente" placeholder="Nombre del Cliente">
+    <input type="text" id="nombrePerrito" placeholder="Nombre del Perrito">
+
+    <div id="status-box">
+        <div id="contenido-vendedora">
+            <small>VENDEDORA:</small>
+            <h3 style="margin: 5px 0;">[ NOMBRE DE ELLA ]</h3>
+            <hr style="border: 0.5px solid #eee;">
+            <p style="color: #777; font-size: 0.9rem;">Esperando registro...</p>
+        </div>
+    </div>
+
+    <button class="btn-accion" id="btn-crear" onclick="procesarRegistro()">CREAR FICHA DIGITAL</button>
+</div>
+
+<script>
+    function leerFoto(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('img-perrito').src = e.target.result;
+                document.getElementById('img-perrito').style.display = 'block';
+                document.getElementById('text-foto').style.display = 'none';
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function procesarRegistro() {
+        const statusBox = document.getElementById('status-box');
+        const btn = document.getElementById('btn-crear');
+        
+        // 1. Mostrar estado de "Guardando"
+        btn.disabled = true;
+        btn.style.background = "#ccc";
+        statusBox.innerHTML = `
+            <div class="loader"></div>
+            <p><strong>Guardando datos...</strong></p>
+            <small>Generando código único</small>
+        `;
+
+        // 2. Simular tiempo de carga (2 segundos) y entregar código
+        setTimeout(() => {
+            const codigoAleatorio = "W-" + Math.floor(Math.random() * 9000 + 1000) + "-X" + Math.floor(Math.random() * 99);
+            
+            statusBox.style.background = "#e6fffa";
+            statusBox.style.borderColor = "#38b2ac";
+            statusBox.innerHTML = `
+                <h4 style="color: #2c7a7b; margin: 0;">✅ ¡REGISTRO EXITOSO!</h4>
+                <p style="margin: 10px 0; font-size: 0.8rem;">CÓDIGO WEB ASIGNADO:</p>
+                <code style="font-size: 1.5rem; font-weight: bold; color: #2d3748;">${codigoAleatorio}</code>
+            `;
+            
+            btn.innerHTML = "✓ COMPLETADO";
+        }, 2000);
+    }
+</script>
+
+</body>
+</html>

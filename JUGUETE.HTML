@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Adventure: Mundo 12</title>
+    <style>
+        :root { --paws: #ffcc00; --water: #0077be; --road: #444; }
+        body { margin: 0; background: #000; color: white; font-family: 'Arial Black', sans-serif; overflow: hidden; }
+        
+        /* MAPA */
+        #map { display: flex; justify-content: space-around; background: #222; padding: 10px; border-bottom: 3px solid var(--paws); }
+        .lvl-dot { width: 25px; height: 25px; border-radius: 50%; background: #444; font-size: 10px; display: flex; align-items: center; justify-content: center; }
+        .lvl-dot.active { background: var(--paws); color: black; box-shadow: 0 0 10px var(--paws); }
+
+        /* MUNDO */
+        #game-world { width: 100vw; height: 75vh; position: relative; overflow: hidden; transition: 0.5s; background: #87CEEB; }
+        #ground { position: absolute; bottom: 0; width: 100%; height: 40px; background: #2ecc71; }
+
+        /* PERSONAJE CUERPO COMPLETO */
+        #pet { position: absolute; width: 50px; height: 45px; z-index: 100; transition: transform 0.1s; }
+        .pet-body { width: 40px; height: 25px; background: #8B4513; border-radius: 10px; position: absolute; bottom: 0; }
+        .pet-head { width: 22px; height: 22px; background: #8B4513; border-radius: 50%; position: absolute; top: 0; right: 0; }
+        .pet-ear { width: 8px; height: 12px; background: #5d2e0a; position: absolute; top: -4px; right: 5px; border-radius: 3px; }
+        
+        /* CARRITO (se activa en nivel de carrera) */
+        .car-body { display: none; width: 60px; height: 20px; background: red; position: absolute; bottom: -5px; left: -5px; border-radius: 5px; }
+        .wheel { width: 12px; height: 12px; background: #000; border-radius: 50%; position: absolute; bottom: -10px; }
+
+        /* OBSTACULOS */
+        .obj { position: absolute; font-size: 30px; }
+        .wall { position: absolute; background: #555; border: 2px solid #777; }
+
+        #ui { height: 10vh; background: #111; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+        .msg-box { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.9); padding: 30px; border: 3px solid var(--paws); text-align: center; display: none; z-index: 1000; }
+    </style>
+</head>
+<body>
+
+    <div id="map">
+        <script>for(let i=1; i<=12; i++) document.write(`<div class="lvl-dot ${i==1?'active':''}" id="dot${i}">${i}</div>`);</script>
+    </div>
+
+    <div id="game-world">
+        <div id="pet">
+            <div class="car-body" id="car"><div class="wheel" style="left:5px"></div><div class="wheel" style="right:5px"></div></div>
+            <div class="pet-head"><div class="pet-ear"></div></div>
+            <div class="pet-body"></div>
+        </div>
+        <div id="goal" style="position:absolute; right:30px; bottom:40px; font-size:50px;">👩‍🦰</div>
+        <div id="ground"></div>
+        <div id="elements"></div>
+    </div>
+
+    <div id="ui">⌨️ FLECHAS: MOVER | ESPACIO: SALTAR/NADAR</div>
+
+    <div id="msg-box" class="msg-box">
+        <h1 id="msg-t">¡NIVEL 1 LOGRADO!</h1>
+        <p id="msg-d">Siguiente desafío...</p>
+        <button onclick="nextLevel()" style="padding:10px 20px; background:var(--paws); border:none; font-weight:bold; cursor:pointer;">CONTINUAR</button>
+    </div>
+
+<script>
+    const pet = document.getElementById('pet');
+    const world = document.getElementById('game-world');
+    const car = document.getElementById('car');
+    const elements = document.getElementById('elements');
+    const msgBox = document.getElementById('msg-box');
+    
+    let posX = 50, posY = 40, velY = 0, isJumping = false;
+    let currentLvl = 1, gameActive = true, keys = {};
+    let mode = 'plataforma'; // plataforma, acuatico, carrera, laberinto
+
+    window.onkeydown = e => keys[e.code] = true;
+    window.onkeyup = e => keys[e.code] = false;
+
+    function initLevel() {
+        elements.innerHTML = "";
+        posX = 50; posY = 40; velY = 0;
+        gameActive = true;
+        msgBox.style.display = 'none';
+        car.style.display = 'none';
+        document.getElementById('ground').style.display = 'block';
+        world.style.background = "#87CEEB";
+
+        if(currentLvl === 2) { 
+            mode = 'acuatico'; 
+            world.style.background = "var(--water)"; 
+            document.getElementById('ground').style.background = "#004466";
+            spawnEnemies('🦈', 5);
+        } else if(currentLvl === 3) { 
+            mode = 'carrera'; 
+            car.style.display = 'block'; 
+            world.style.background = "#555";
+            document.getElementById('ground').style.background = "#333";
+            spawnEnemies('🌵', 8);
+        } else if(currentLvl === 4) {
+            mode = 'laberinto';
+            document.getElementById('ground').style.display = 'none';
+            world.style.background = "#222";
+            spawnWalls();
+        } else {
+            mode = 'plataforma';
+            spawnEnemies('📦', 4);
+        }
+    }
+
+    function spawnEnemies(emoji, cant) {
+        for(let i=0; i<cant; i++) {
+            let o = document.createElement('div');
+            o.className = 'obj';
+            o.innerHTML = emoji;
+            o.style.left = (300 + (i * 250)) + 'px';
+            o.style.bottom = (mode === 'acuatico' ? Math.random()*300 : 40) + 'px';
+            elements.appendChild(o);
+        }
+    }
+
+    function spawnWalls() {
+        for(let i=0; i<15; i++) {
+            let w = document.createElement('div');
+            w.className = 'wall';
+            w.style.width = '100px'; w.style.height = '100px';
+            w.style.left = Math.random()*80 + 'vw';
+            w.style.top = Math.random()*60 + 'vh';
+            elements.appendChild(w);
+        }
+    }
+
+    function update() {
+        if (!gameActive) return;
+
+        // Lógica según modo
+        if (mode === 'plataforma' || mode === 'carrera') {
+            if (keys['ArrowRight']) posX += (mode === 'carrera' ? 10 : 5);
+            if (keys['ArrowLeft']) posX -= 5;
+            if (keys['Space'] && !isJumping) { velY = 15; isJumping = true; }
+            posY += velY;
+            if (posY > 40) velY -= 0.8; 
+            else { posY = 40; velY = 0; isJumping = false; }
+        } 
+        
+        else if (mode === 'acuatico') {
+            if (keys['ArrowRight']) posX += 4;
+            if (keys['ArrowLeft']) posX -= 4;
+            if (keys['Space']) velY = 4; else velY = -2;
+            posY += velY;
+            if (posY < 0) posY = 0; if (posY > 350) posY = 350;
+            pet.style.transform = `rotate(${velY * -5}deg)`;
+        }
+
+        else if (mode === 'laberinto') {
+            if (keys['ArrowRight']) posX += 5;
+            if (keys['ArrowLeft']) posX -= 5;
+            if (keys['ArrowUp']) posY += 5;
+            if (keys['ArrowDown']) posY -= 5;
+        }
+
+        pet.style.left = posX + 'px';
+        pet.style.bottom = posY + 'px';
+
+        checkCollisions();
+
+        if (posX > window.innerWidth - 60) win();
+        requestAnimationFrame(update);
+    }
+
+    function checkCollisions() {
+        const pRect = pet.getBoundingClientRect();
+        document.querySelectorAll('.obj, .wall').forEach(o => {
+            const oRect = o.getBoundingClientRect();
+            if (!(pRect.right < oRect.left || pRect.left > oRect.right || pRect.bottom < oRect.top || pRect.top > oRect.bottom)) {
+                gameActive = false;
+                alert("💥 ¡BOOM! Inténtalo de nuevo.");
+                initLevel();
+            }
+        });
+    }
+
+    function win() {
+        gameActive = false;
+        msgBox.style.display = 'block';
+        document.getElementById('msg-t').innerText = "¡NIVEL " + currentLvl + " COMPLETADO!";
+        if(currentLvl === 12) document.getElementById('msg-d').innerText = "🏆 ¡ERES EL MAESTRO DE LAS MASCOTAS!";
+    }
+
+    function nextLevel() {
+        currentLvl++;
+        if(currentLvl > 12) return location.reload();
+        document.querySelectorAll('.lvl-dot').forEach(d => d.classList.remove('active'));
+        document.getElementById('dot' + currentLvl).classList.add('active');
+        initLevel();
+        update();
+    }
+
+    initLevel();
+    update();
+</script>
+</body>
+</html>
