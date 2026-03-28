@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YAKO MUNDO MASCOTA - Agenda de Citas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primario: #4ECDC4;
+            --secundario: #FF6B6B;
+            --acento: #FFD93D;
+            --fondo: #f7f9fc;
+            --azul-llave: #007bff;
+            --naranja-servicio: #FFB74D;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--fondo);
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* --- INTRO MOSAICO --- */
+        #pantalla-intro {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: #000;
+            z-index: 10000;
+            overflow: hidden;
+        }
+
+        #pantalla-intro.oculto {
+            opacity: 0;
+            visibility: hidden;
+            transition: 1.5s ease-out;
+        }
+
+        .foto-mosaico {
+            position: absolute;
+            width: 33.33%; height: 25%;
+            object-fit: cover;
+            object-position: center;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: aparecerFijo 0.5s forwards;
+        }
+
+        @keyframes aparecerFijo {
+            to { opacity: 0.7; transform: scale(1); }
+        }
+
+        #mensaje-final {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            z-index: 10001;
+            background: rgba(0, 0, 0, 0.4);
+            animation: fadeIn 1s forwards;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 900;
+        }
+
+        .logo-text {
+            font-family: 'Fredoka One', cursive;
+            color: var(--secundario);
+            font-size: 2.2em;
+            margin: 0;
+        }
+
+        /* --- BUSCADOR --- */
+        .buscador-container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            text-align: center;
+            border: 3px solid var(--primario);
+        }
+
+        .input-busqueda {
+            width: 100%;
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px solid #ddd;
+            font-size: 1.1em;
+            outline: none;
+        }
+
+        /* --- SECCIÓN SERVICIOS (ACORDEÓN NARANJA) --- */
+        .lista-desplegable-container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 0 15px;
+        }
+
+        .item-desplegable {
+            margin-bottom: 8px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .cabecera-servicio {
+            background-color: var(--naranja-servicio);
+            color: #4a3419;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 1.1em;
+            transition: background 0.3s;
+        }
+
+        .cabecera-servicio:hover {
+            background-color: #ffa726;
+        }
+
+        .contenido-servicio {
+            background: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .contenido-servicio p {
+            padding: 15px 20px;
+            margin: 0;
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.5;
+            border-bottom: 2px solid var(--naranja-servicio);
+        }
+
+        .item-desplegable.abierto .contenido-servicio {
+            max-height: 200px;
+        }
+
+        .flecha {
+            font-size: 0.8em;
+            transition: transform 0.3s;
+        }
+
+        .item-desplegable.abierto .flecha {
+            transform: rotate(180deg);
+        }
+
+        /* --- TARJETAS DE PRECIOS --- */
+        .sugerencias-container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .card-sugerencia {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            border-bottom: 5px solid var(--primario);
+            transition: transform 0.3s;
+        }
+
+        .card-sugerencia:hover { transform: translateY(-5px); }
+
+        .card-sugerencia img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-sugerencia h3 {
+            margin: 15px 0 5px;
+            font-family: 'Fredoka One';
+            color: var(--secundario);
+        }
+
+        .lista-precios {
+            text-align: left;
+            padding: 0 20px;
+            margin-bottom: 20px;
+        }
+
+        .item-precio {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #eee;
+            font-size: 0.95em;
+        }
+
+        .valor {
+            font-weight: bold;
+            color: var(--azul-llave);
+        }
+
+        /* --- FORMULARIO MODAL --- */
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            width: 95%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .grid-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-family: 'Quicksand';
+        }
+
+        label {
+            font-size: 0.85em;
+            font-weight: bold;
+            color: #555;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .full-width { grid-column: span 2; }
+
+        .footer-info {
+            text-align: center;
+            padding: 40px;
+            background: #eee;
+            margin-top: 50px;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div id="pantalla-intro">
+        <div id="contenedor-mosaico"></div>
+        <div id="mensaje-final">
+            <h2 style="font-family: 'Fredoka One'; font-size: 3.5em; margin: 0;">YAKO MUNDO</h2>
+            <p style="font-size: 2em; color: var(--acento);">🐾 MASCOTA 🐾</p>
+            <span style="font-size: 1.5em; background: var(--secundario); padding: 5px 20px; border-radius: 50px;">3224022039</span>
+        </div>
+    </div>
+
+    <header>
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/1e/Purina_logo.svg/1200px-Purina_logo.svg.png" alt="Purina" style="height: 40px; margin-bottom: 10px;">
+        <h1 class="logo-text">✂️ YAKO MUNDO MASCOTA ✂️</h1>
+        <button style="background:var(--secundario); color:white; border:none; padding:12px 30px; border-radius:50px; font-family:'Fredoka One'; cursor:pointer; margin-top:10px;" onclick="abrirModal()">📅 RESERVAR CITA AHORA</button>
+    </header>
+
+    <section class="buscador-container">
+        <h2 style="font-family:'Fredoka One'; color: var(--secundario);">🔍 Consulta de Precios Rápidos</h2>
+        <input type="text" id="inputRaza" class="input-busqueda" placeholder="Escribe la raza de tu perro..." oninput="buscarPrecioRaza()">
+        <div id="resultado-precio" style="display:none; margin-top:15px; background:#e0f7f5; padding:15px; border-radius:15px;">
+            <p id="texto-raza" style="font-weight:bold;"></p>
+            <span id="monto-precio" style="font-size:2em; color:var(--primario); font-weight:bold;"></span>
+        </div>
+    </section>
+
+    <h2 style="text-align:center; font-family:'Fredoka One'; color:var(--secundario); margin-top:40px;">📋 DETALLES DEL SERVICIO</h2>
+    <div class="lista-desplegable-container">
+        <div class="item-desplegable">
+            <div class="cabecera-servicio" onclick="toggleServicio(this)">Baño y Cepillado <span class="flecha">▼</span></div>
+            <div class="contenido-servicio"><p>Baño profundo con agua tibia, shampoo especial según el pelo y retiro de pelo muerto mediante cepillado.</p></div>
+        </div>
+        <div class="item-desplegable">
+            <div class="cabecera-servicio" onclick="toggleServicio(this)">Corte de Pelo <span class="flecha">▼</span></div>
+            <div class="contenido-servicio"><p>Corte estético según la raza o estilo preferido por el dueño, incluye corte higiénico.</p></div>
+        </div>
+        <div class="item-desplegable">
+            <div class="cabecera-servicio" onclick="toggleServicio(this)">Corte de Uñas <span class="flecha">▼</span></div>
+            <div class="contenido-servicio"><p>Recorte seguro de las puntas de las uñas para evitar molestias y ruidos al caminar.</p></div>
+        </div>
+        <div class="item-desplegable">
+            <div class="cabecera-servicio" onclick="toggleServicio(this)">Limpieza de Oídos <span class="flecha">▼</span></div>
+            <div class="contenido-servicio"><p>Limpieza cuidadosa con productos óticos para prevenir infecciones y eliminar suciedad.</p></div>
+        </div>
+        <div class="item-desplegable">
+            <div class="cabecera-servicio" onclick="toggleServicio(this)">Cepillado Dental <span class="flecha">▼</span></div>
+            <div class="contenido-servicio"><p>Limpieza de dientes con crema dental para mascotas, mejorando el aliento notablemente.</p></div>
+        </div>
+        <div class="item-desplegable">
+            <div class="cabecera-servicio" onclick="toggleServicio(this)">Hidratación Profunda para el Pelaje <span class="flecha">▼</span></div>
+            <div class="contenido-servicio"><p>Mascarilla especial para dar brillo, suavidad y sedosidad extrema al pelo de tu mascota.</p></div>
+        </div>
+        <div class="item-desplegable">
+            <div class="cabecera-servicio" onclick="toggleServicio(this)">Servicios Adicionales <span class="flecha">▼</span></div>
+            <div class="contenido-servicio"><p>Drenaje de glándulas, aplicación de perfumes, moños y accesorios especiales.</p></div>
+        </div>
+    </div>
+
+    <h2 style="text-align:center; font-family:'Fredoka One'; color:var(--primario); margin-top:40px;">🛁 SUGERENCIAS DE BAÑOS</h2>
+    <div class="sugerencias-container">
+        <div class="card-sugerencia">
+            <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=500&q=80" alt="Solo Baño">
+            <h3>Solo Baño</h3>
+            <p style="padding:0 15px; font-size: 0.85em; color: #777;">Limpieza de oídos, corte de uñas y drenaje de glándulas.</p>
+            <div class="lista-precios">
+                <div class="item-precio"><span>🐶 Raza Pequeña</span> <span class="valor">$25.000 - $30.000</span></div>
+                <div class="item-precio"><span>🐕 Raza Mediana</span> <span class="valor">$35.000 - $45.000</span></div>
+                <div class="item-precio"><span>🦁 Raza Grande</span> <span class="valor">$55.000 - $75.000</span></div>
+            </div>
+            <button onclick="abrirModal()" style="background:var(--primario); color:white; border:none; padding:12px; width:80%; border-radius:10px; cursor:pointer; margin-bottom:20px; font-weight:bold;">ELEGIR BAÑO</button>
+        </div>
+
+        <div class="card-sugerencia" style="border-bottom-color: var(--secundario);">
+            <img src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=500&q=80" alt="Baño y Peluquería">
+            <h3 style="color: var(--secundario);">Baño y Peluquería</h3>
+            <p style="padding:0 15px; font-size: 0.85em; color: #777;">Servicio completo + corte de raza o deslanado pro.</p>
+            <div class="lista-precios">
+                <div class="item-precio"><span>🐶 Raza Pequeña</span> <span class="valor">$45.000 - $55.000</span></div>
+                <div class="item-precio"><span>🐕 Raza Mediana</span> <span class="valor">$60.000 - $75.000</span></div>
+                <div class="item-precio"><span>🦁 Raza Grande</span> <span class="valor">$85.000 - $120.000</span></div>
+            </div>
+            <button onclick="abrirModal()" style="background:var(--secundario); color:white; border:none; padding:12px; width:80%; border-radius:10px; cursor:pointer; margin-bottom:20px; font-weight:bold;">ELEGIR PELUQUERÍA</button>
+        </div>
+    </div>
+
+    <div id="modal-agenda" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:none; justify-content:center; align-items:center; z-index:11000;">
+        <div class="modal-content">
+            <button style="position:absolute; right:15px; top:15px; border:none; background:none; font-size:24px; cursor:pointer;" onclick="cerrarModal()">✕</button>
+            <h2 style="font-family:'Fredoka One'; color:var(--secundario); text-align:center;">Reserva tu Cita</h2>
+            <div class="grid-form">
+                <div><label>Nombre Mascota</label><input type="text" id="nombreMascota" placeholder="Nombre"></div>
+                <div><label>Raza</label><input type="text" id="razaMascota" placeholder="Raza"></div>
+                <div><label>Peso (Kg)</label><input type="number" id="pesoMascota" placeholder="Peso"></div>
+                <div><label>Edad</label><input type="text" id="edadMascota" placeholder="Edad"></div>
+                <div class="full-width">
+                    <label>Servicio</label>
+                    <select id="servicioSeleccionado">
+                        <option value="Solo Baño">Solo Baño</option>
+                        <option value="Baño y Peluquería">Baño y Peluquería</option>
+                    </select>
+                </div>
+                <div><label>Tu Número</label><input type="tel" id="contactoNum" placeholder="Celular"></div>
+                <div><label>Emergencia</label><input type="tel" id="contactoEmergencia" placeholder="Tel. Alterno"></div>
+                <div class="full-width">
+                    <label>Observaciones</label>
+                    <textarea id="descripcionCita" rows="2"></textarea>
+                </div>
+            </div>
+            <button style="background:#25d366; color:white; border:none; width:100%; padding:15px; border-radius:15px; font-weight:bold; cursor:pointer; margin-top:15px;" onclick="enviarWhatsApp()">
+                ENVIAR RESERVA A WHATSAPP 📱
+            </button>
+            <p style="text-align:center; font-size:0.8em; color:#888; margin-top:10px;">Aceptamos: <b>Llave 🔑</b></p>
+        </div>
+    </div>
+
+    <footer class="footer-info">
+        <h3>SÍGUENOS Y VISÍTANOS</h3>
+        <p><b>📍 DIRECCIÓN:</b> Calle 15 #13a-11, chia, cundinamarca</p>
+        <p style="margin-top:10px;"><b>Método de pago: Llave 🔑</b></p>
+        <p>© 2026 YAKO MUNDO DE MASCOTAS</p>
+    </footer>
+
+    <script>
+        // LÓGICA ACORDEÓN
+        function toggleServicio(header) {
+            const item = header.parentElement;
+            item.classList.toggle('abierto');
+        }
+
+        // PRECIOS BUSCADOR
+        const preciosPorRaza = {
+            "poodle": 30000, "pincher": 25000, "shih tzu": 35000, "yorkshire": 30000, "beagle": 40000, "schnauzer": 40000
+        };
+
+        function buscarPrecioRaza() {
+            const input = document.getElementById('inputRaza').value.toLowerCase().trim();
+            const res = document.getElementById('resultado-precio');
+            if (input.length < 2) { res.style.display = 'none'; return; }
+            let encontrada = false;
+            for (let r in preciosPorRaza) {
+                if (r.includes(input)) {
+                    document.getElementById('texto-raza').innerText = "Raza: " + r.toUpperCase();
+                    document.getElementById('monto-precio').innerText = "$" + preciosPorRaza[r].toLocaleString();
+                    res.style.display = 'block';
+                    encontrada = true; break;
+                }
+            }
+            if(!encontrada) { 
+                document.getElementById('texto-raza').innerText = "Raza no en lista";
+                document.getElementById('monto-precio').innerText = "Consultar";
+                res.style.display = 'block';
+            }
+        }
+
+        // INTRO MOSAICO
+        const fotosIntro = ["YAKO 1.jpeg", "YAKO 2.jpeg", "YAKO 3.jpeg", "YAKO 4.jpeg", "YAKO 5.jpeg", "YAKO 6.jpeg", "YAKO 7.jpeg", "YAKO 8.jpeg", "YAKO 1.jpeg", "YAKO 2.jpeg", "YAKO 3.jpeg", "YAKO 4.jpeg"];
+        const contenedor = document.getElementById('contenedor-mosaico');
+        fotosIntro.forEach((url, i) => {
+            const img = document.createElement('img');
+            img.src = url; img.className = 'foto-mosaico';
+            img.style.top = (Math.floor(i/3)*25) + "%";
+            img.style.left = ((i%3)*33.3) + "%";
+            img.style.animationDelay = `${i * 0.15}s`;
+            contenedor.appendChild(img);
+        });
+        setTimeout(() => {
+            document.getElementById('mensaje-final').style.display = "flex";
+            setTimeout(() => { document.getElementById('pantalla-intro').classList.add('oculto'); }, 2500);
+        }, 3000);
+
+        function abrirModal() { document.getElementById('modal-agenda').style.display = 'flex'; }
+        function cerrarModal() { document.getElementById('modal-agenda').style.display = 'none'; }
+
+        function enviarWhatsApp() {
+            const m = document.getElementById('nombreMascota').value;
+            const r = document.getElementById('razaMascota').value;
+            const ser = document.getElementById('servicioSeleccionado').value;
+            const c1 = document.getElementById('contactoNum').value;
+
+            if(!m || !r || !c1) { alert("Por favor llena Nombre, Raza y Contacto"); return; }
+
+            const mensaje = `¡Hola YAKO MUNDO! 🐾%0A*RESERVA DE CITA*%0A*Mascota:* ${m}%0A*Servicio:* ${ser}%0A*Raza:* ${r}%0A*Pago:* LLAVE 🔑`;
+            window.open(`https://wa.me/573224022039?text=${mensaje}`, '_blank');
+        }
+    </script>
+</body>
+</html>

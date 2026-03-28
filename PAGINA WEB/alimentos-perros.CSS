@@ -1,0 +1,50 @@
+.contenedor-etiquetas {
+    width: 100%;
+    padding: 20px 0;
+    background: #f9f9f9; /* Color de fondo suave */
+    overflow: hidden;
+}
+
+.etiquetas-scroll {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto; /* Permite scroll horizontal */
+    padding: 10px 20px;
+    scrollbar-width: none; /* Oculta scroll en Firefox */
+}
+
+.etiquetas-scroll::-webkit-scrollbar {
+    display: none; /* Oculta scroll en Chrome/Safari */
+}
+
+.etiqueta-item {
+    flex: 0 0 auto; /* Evita que las etiquetas se encojan */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    padding: 10px 15px;
+    border-radius: 50px; /* Forma redondeada tipo cápsula */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.etiqueta-item:hover {
+    transform: scale(1.05);
+}
+
+.etiqueta-item img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 5px;
+}
+
+.etiqueta-item span {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #333;
+    white-space: nowrap;
+}

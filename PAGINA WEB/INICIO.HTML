@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yako Mundo Mascotas | Tienda Premium</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo-wrapper">
+            <img src="LOGO YAKO .png" alt="Logo" class="brand-logo-img">
+            <div class="logo">YAKO<span>MUNDO</span>MASCOTAS</div>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="inputBuscador" placeholder="¿Qué necesita tu mejor amigo hoy?">
+            <i class="fas fa-search" onclick="realizarBusqueda()" style="cursor:pointer;"></i>
+        </div>
+        
+        <ul>
+            <li><a href="MI CUENTA.HTML">Mi Cuenta</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+            <li>
+                <div class="cart-info" onclick="toggleCart()" style="cursor: pointer;">
+                    <i class="fas fa-shopping-basket"></i> 
+                    <span id="count">0</span> | $<span id="total">0</span>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="menu-categorias">
+        <div class="categoria-item">
+            PERROS
+            <div class="mega-menu">
+                <div class="menu-col">
+                    <h4>Alimentos</h4>
+                    <ul>
+                        <li><a href="alimentos-perros.html">Seco</a></li>
+                        <li><a href="barf-perros.html">Humedo</a></li>
+                    </ul>
+                </div>
+                
+                <div class="menu-col">
+                    <h4>Higiene</h4>
+                    <ul>
+                        <li><a href="shampoo-jabon.html">Shampoo y Jabón</a></li>
+                        <li><a href="panales-desechables.html">Pañales Desechables</a></li>
+                        <li><a href="cepillos-dentales.html">Cepillos Dentales</a></li>
+                        <li><a href="eliminador-olores.html">Eliminador Olores</a></li>
+                    </ul>
+                </div>
+                <div class="menu-col">
+                    <h4>Accesorios</h4>
+                    <ul>
+                        <li><a href="pecheras-arneses.html">Pecheras y Arneses</a></li>
+                        <li><a href="collares-cuero.html">Collares de Cuero</a></li>
+                        <li><a href="placas-identificacion.html">Placas de Identificación</a></li>
+                        <li><a href="guacales-viaje.html">Guacales de Viaje</a></li>
+                    </ul>
+                </div>
+                <div class="menu-col">
+                    <h4>Juguetes</h4>
+                    <ul>
+                        <li><a href="kongs-interactivos.html">Kongs e Interactivos</a></li>
+                        <li><a href="pelotas-caucho.html">Pelotas de Caucho</a></li>
+                        <li><a href="lazos-traccion.html">Lazos de Tracción</a></li>
+                        <li><a href="peluches-sonido.html">Peluches con Sonido</a></li>
+                    </ul>
+                </div>
+                <div class="menu-col">
+                    <h4>Snacks</h4>
+                    <ul>
+                        <li><a href="desparasitantes.html">Bocaditos</a></li>
+                        <li><a href="multivitaminicos.html">Huesos y carnazas para Perros
+
+</a></li>
+                        <li><a href="proteccion-articular.html">Galletas</a></li>
+                         <li><a href="proteccion-articular.html">cremosos</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="categoria-item">GATOS
+            <div class="mega-menu">
+                <div class="menu-col">
+                    <h4>Nutrición</h4>
+                    <ul>
+                        <li><a href="#">Alimento Seco</a></li>
+                        <li><a href="#">Sobres y Snacks</a></li>
+                        <li><a href="#">Catnip y Hierbas</a></li>
+                        <li><a href="#">Leche Especial</a></li>
+                    </ul>
+                </div>
+                <div class="menu-col">
+                    <h4>Cuidado Arena</h4>
+                    <ul>
+                        <li><a href="#">Arena de Bentonita</a></li>
+                        <li><a href="#">Arena de Madera</a></li>
+                        <li><a href="#">Areneras Cerradas</a></li>
+                        <li><a href="#">Palas y Tapetes</a></li>
+                    </ul>
+                </div>
+                <div class="menu-col">
+                    <h4>Rascadores</h4>
+                    <ul>
+                        <li><a href="#">Gimnasios Multinivel</a></li>
+                        <li><a href="#">Rascadores de Cartón</a></li>
+                        <li><a href="#">Postes de Sísal</a></li>
+                    </ul>
+                </div>
+                <div class="menu-col">
+                    <h4>Accesorios</h4>
+                    <ul>
+                        <li><a href="#">Collares Antipérdida</a></li>
+                        <li><a href="#">Fuentes de Agua</a></li>
+                        <li><a href="#">Hamacas de Ventana</a></li>
+                    </ul>
+                </div>
+                <div class="menu-col">
+                    <h4>Salud</h4>
+                    <ul>
+                        <li><a href="#">Control de Bolas de Pelo</a></li>
+                        <li><a href="#">Pipetas Antipulgas</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="categoria-item">HÁMSTER
+            <div class="mega-menu">
+                <div class="menu-col">
+                    <h4>Hábitat</h4>
+                    <ul>
+                        <li><a href="#">Jaulas de Acrílico</a></li>
+                        <li><a href="#">Tubos y Conectores</a></li>
+                        <li><a href="#">Sustrato de Papel</a></li>
+                    </ul>
+                </div>
+                <div class="menu-col">
+                    <h4>Alimentación</h4>
+                    <ul>
+                        <li><a href="#">Semillas Mixtas</a></li>
+                        <li><a href="#">Frutas Deshidratadas</a></li>
+                        <li><a href="#">Bloques Minerales</a></li>
+                    </ul>
+                </div>
+                <div class="menu-col">
+                    <h4>Diversión</h4>
+                    <ul>
+                        <li><a href="#">Ruedas Silenciosas</a></li>
+                        <li><a href="#">Esferas de Ejercicio</a></li>
+                        <li><a href="#">Puentes de Madera</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="categoria-item">PECES
+            <div class="mega-menu">
+                <div class="menu-col">
+                    <h4>Acuarios</h4>
+                    <ul>
+                        <li><a href="#">Peceras de Vidrio</a></li>
+                        <li><a href="#">Muebles de Soporte</a></li>
+                        <li><a href="#">Kits Completos</a></li>
+                    </ul>
+                </div>
+                <div class="menu-col">
+                    <h4>Mantenimiento</h4>
+                    <ul>
+                        <li><a href="#">Filtros de Cascada</a></li>
+                        <li><a href="#">Bombas de Oxígeno</a></li>
+                        <li><a href="#">Termostatos</a></li>
+                        <li><a href="#">Acondicionador de Agua</a></li>
+                    </ul>
+                </div>
+                <div class="menu-col">
+                    <h4>Decoración</h4>
+                    <ul>
+                        <li><a href="#">Plantas Artificiales</a></li>
+                        <li><a href="#">Grava de Colores</a></li>
+                        <li><a href="#">Troncos Naturales</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="categoria-item">LORO
+            <div class="mega-menu">
+                <div class="menu-col">
+                    <h4>Nutrición</h4>
+                    <ul>
+                        <li><a href="#">Mistura de Semillas</a></li>
+                        <li><a href="#">Extruidos de Frutas</a></li>
+                        <li><a href="#">Vitaminas en Gotas</a></li>
+                    </ul>
+                </div>
+                <div class="menu-col">
+                    <h4>Hospedaje</h4>
+                    <ul>
+                        <li><a href="#">Jaulas de Pie</a></li>
+                        <li><a href="#">Perchas de Calcio</a></li>
+                        <li><a href="#">Columpios</a></li>
+                    </ul>
+                </div>
+                <div class="menu-col">
+                    <h4>Higiene</h4>
+                    <ul>
+                        <li><a href="#">Spray de Plumas</a></li>
+                        <li><a href="#">Bañeras Adaptables</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="categoria-item" style="color: #ff0000; font-weight: 800;">🔥 OFERTAS</div>
+    </div>
+
+    <div class="hero-slider">
+        <button class="prev" onclick="changeSlide(-1)">❮</button>
+        <button class="next" onclick="changeSlide(1)">❯</button>
+
+        <div class="slide active">
+            <img src="BARF 1.png" alt="Slider 1">
+            <div class="hero-text">
+                <h1>Más que alimento, es bienestar</h1>
+                <p>Tu mascota en manos expertas</p>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="chigua gua.png" alt="Slider 2">
+            <div class="hero-text">
+                <h1>VIDA SANA</h1>
+                <p>Nutrición y cuidado natural</p>
+            </div>
+        </div>
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1600" alt="Slider 3">
+            <div class="hero-text">
+                <h1>MUNDO DE ILUSIÓN</h1>
+                <p>Diversión garantizada</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="busca-mascota">
+        <h2>Busca por tus Mascotas</h2>
+        <div class="icon-grid">
+            <a href="perros.html" class="icon-card" style="text-decoration: none; color: inherit;">
+                <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400" alt="Perro">
+                <p>PERROS</p>
+            </a>
+            <a href="gatos.html" class="icon-card" style="text-decoration: none; color: inherit;">
+                <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400" alt="Gato">
+                <p>GATOS</p>
+            </a>
+            <a href="peces.html" class="icon-card" style="text-decoration: none; color: inherit;">
+                <img src="https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?w=400" alt="Peces">
+                <p>PECES</p>
+            </a>
+            <a href="aves.html" class="icon-card" style="text-decoration: none; color: inherit;">
+                <img src="https://www.bing.com/th/id/OIP.jlwwpzoA2xhVvBaisgo7qQHaEc?w=306&h=211&c=8&rs=1&qlt=90&o=6&dpr=1.1&pid=3.1&rm=2" alt="Loro">
+                <p>AVES</p>
+            </a>
+            <a href="conejos.html" class="icon-card" style="text-decoration: none; color: inherit;">
+                <img src="https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=400" alt="Conejo">
+                <p>CONEJOS</p>
+            </a>
+            <a href="hamsters.html" class="icon-card" style="text-decoration: none; color: inherit;">
+                <img src="https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=400" alt="Hamster">
+                <p>HÁMSTERS</p>
+            </a>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="section-header">
+            <h2>LO MEJOR PARA TU MEJOR AMIGO</h2>
+        </div>
+        
+        <div class="carousel-wrapper">
+            <button class="carousel-nav prev-nav" onclick="moveCarousel(-1)">❮</button>
+            <div class="carousel-view">
+                <div class="productos-slider" id="mainSlider">
+                    <div class="producto-card card-higiene">
+                        <div class="producto-img"><img src="BARF.png" alt="BARF 1"></div>
+                        <div class="producto-info">
+                            <span class="etiqueta-azul">Dieta Natural Premium</span>
+                            <h3>BARF 750 GR</h3>
+                            <span class="precio">$8.600</span>
+                            <select class="select-variante">
+                                <option>Seleccionar Gramaje</option>
+                                <option>500 Gramos</option>
+                                <option>750 Gramos (Original)</option>
+                                <option>1000 Gramos</option>
+                            </select>
+                            <div class="selector-cantidad">
+                                <input type="number" class="input-cant" value="1" min="1">
+                                <button class="btn-comprar btn-verde" onclick="sumarPedido('BARF 750 GR', 8600, this)">Agregar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="producto-card card-higiene">
+                        <div class="producto-img"><img src="rr.png" alt="BARF 2"></div>
+                        <div class="producto-info">
+                            <span class="etiqueta-azul">Súper Alimento</span>
+                            <h3>BARF 600 GR </h3>
+                            <span class="precio">$28.000</span>
+                            <select class="select-variante">
+                                <option>Seleccionar Proteína</option>
+                                <option>Pollo Natural</option>
+                                <option>Res Premium</option>
+                                <option>Cordero Especial</option>
+                            </select>
+                            <div class="selector-cantidad">
+                                <input type="number" class="input-cant" value="1" min="1">
+                                <button class="btn-comprar btn-verde" onclick="sumarPedido('BARF 600 GR', 28000, this)">Agregar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="producto-card card-higiene">
+                        <div class="producto-img"><img src="gold 500 gr.png" alt="BARF 3"></div>
+                        <div class="producto-info">
+                            <span class="etiqueta-azul">Alta Digestibilidad</span>
+                            <h3>BARF 500 GR</h3>
+                            <span class="precio">$12.500</span>
+                            <select class="select-variante">
+                                <option>Opciones Disponibles</option>
+                                <option>Cachorro Inicial</option>
+                                <option>Adulto Mantenimiento</option>
+                            </select>
+                            <div class="selector-cantidad">
+                                <input type="number" class="input-cant" value="1" min="1">
+                                <button class="btn-comprar btn-verde" onclick="sumarPedido('BARF 500 GR', 12500, this)">Agregar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="producto-card card-higiene">
+                        <div class="producto-img"><img src="https://images.unsplash.com/photo-1591946614720-90a587da4a36?w=500" alt="Cama 1"></div>
+                        <div class="producto-info">
+                            <span class="etiqueta-azul">Descanso Reparador</span>
+                            <h3>Cama Ortopédica L</h3>
+                            <span class="precio">$120.000</span>
+                            <select class="select-variante">
+                                <option>Seleccionar Talla</option>
+                                <option>Talla S</option>
+                                <option>Talla M</option>
+                                <option>Talla L (Original)</option>
+                                <option>Talla XL</option>
+                            </select>
+                            <div class="selector-cantidad">
+                                <input type="number" class="input-cant" value="1" min="1">
+                                <button class="btn-comprar btn-verde" onclick="sumarPedido('Cama Ortopédica', 120000, this)">Agregar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-nav next-nav" onclick="moveCarousel(1)">❯</button>
+        </div>
+    </div>
+
+    <div class="marcas-section">
+        <h2>MARCAS ALIADAS</h2>
+        <div class="marcas-container">
+            <div class="marca-item"><a href="https://www.purina.com.co/" target="_blank"><img src="purina .png" alt="Purina"></a></div>
+            <div class="marca-item"><a href="https://www.royalcanin.com/co" target="_blank"><img src="https://via.placeholder.com/150x80?text=ROYAL+CANIN" alt="Royal Canin"></a></div>
+            <div class="marca-item"><a href="PELUDITOS.HTML" target="_blank"><img src="logo pedudito.png" alt="Peludito"></a></div>
+            <div class="marca-item"><a href="https://www.nutrecan.com.co/" target="_blank"><img src="https://via.placeholder.com/150x80?text=NUTRE+CAN" alt="NutreCan"></a></div>
+            <div class="marca-item"><a href="https://www.hillspet.com.co/" target="_blank"><img src="https://via.placeholder.com/150x80?text=HILL'S" alt="Hills"></a></div>
+        </div>
+    </div>
+
+    <footer id="contacto">
+        <h2>SÍGUENOS Y VISÍTANOS</h2>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/yakomundodemascotas/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+        
+        <div class="direccion-box">
+            <p><i class="fas fa-map-marker-alt"></i> <strong>DIRECCIÓN:</strong> Calle 15 #13a-11, Chía, Cundinamarca</p>
+            <p><i class="fas fa-phone"></i> <strong>TELÉFONO:</strong> +57 322 402 2039</p>
+            <a href="https://maps.google.com/?q=Calle+15+%2313a-11,+Chía,+Cundinamarca" target="_blank" class="btn-maps">
+                <i class="fas fa-route"></i> VER EN GOOGLE MAPS
+            </a>
+        </div>
+
+        <div class="seccion-pagos">
+            <div class="titulo-pagos">MÉTODOS DE PAGO ACEPTADOS</div>
+            <div class="iconos-pagos-container">
+                <img src="https://images.crunchbase.com/image/upload/c_pad,h_170,w_170,f_auto,g_faces,z_1,q_auto:eco,dpr_1/pzkswubv6wntjym1u7x6" alt="Nequi" class="pago-logo">
+                <img src="https://www.daviplata.com/PublishingImages/LogoDaviplata.png" alt="Daviplata" class="pago-logo">
+                <div class="pago-efectivo">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>EFECTIVO</span>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 50px; opacity: 0.6; font-size: 13px;">
+            <p>© 2026 YAKO MUNDO DE MASCOTAS. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <div id="modal-carrito" class="modal-carrito-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-shopping-basket"></i> Resumen de Pedido</h3>
+                <button onclick="toggleCart()" style="background:none; border:none; font-size:25px; cursor:pointer;">×</button>
+            </div>
+            <div id="lista-carrito" class="lista-productos-modal"></div>
+            <div class="modal-footer">
+                <p style="font-size: 1.2rem;">Total: <strong>$<span id="total-modal">0</span></strong></p>
+                <button class="btn-comprar btn-verde" style="width: 100%; margin-bottom: 10px;" onclick="enviarWhatsApp()">Finalizar y Pedir por WhatsApp</button>
+                <button class="btn-comprar" style="width: 100%; background: #999;" onclick="vaciarCarrito()">Vaciar Todo</button>
+            </div>
+        </div>
+    </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

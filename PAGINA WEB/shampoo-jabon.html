@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yako Mundo Mascotas | Sección Perros</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+   
+</head>
+<body>
+
+    <nav>
+        <div class="logo-wrapper" onclick="window.location.href='INICIO.HTML'" style="cursor:pointer">
+            <img src="LOGO YAKO .png" alt="Logo" class="brand-logo-img">
+            <div class="logo">YAKO<span>MUNDO</span>Mascotas </div>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="mainSearch" placeholder="Buscar en la sección de perros...">
+            <i class="fas fa-search" onclick="ejecutarBusqueda()" style="cursor:pointer;"></i>
+        </div>
+        
+        <ul>
+             <li><a href="INICIO.HTML">Inicio</a></li>
+            <li><a href="MI CUENTA.HTML">Mi Cuenta</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+            <li>
+                <div class="cart-info" onclick="toggleCart()" style="cursor: pointer;">
+                    <i class="fas fa-shopping-basket"></i> 
+                    <span id="count">0</span> | $<span id="total">0</span>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="menu-categorias">
+        <div class="categoria-item">PERROS
+            <div class="mega-menu">
+                <div class="menu-col">
+                    <h4>Alimentos</h4>
+                    <ul><li><a href="alimentos-perros.html">Concentrados</a></li><li><a href="barf-perros.html">BARF</a></li></ul>
+                </div>
+                <div class="menu-col">
+                    <h4>Accesorios</h4>
+                    <ul><li><a href="pecheras.html">Pecheras</a></li></ul>
+                </div>
+            </div>
+        </div>
+        <div class="categoria-item">GATOS</div>
+        <div class="categoria-item">HÁMSTER</div>
+        <div class="categoria-item">PECES</div>
+        <div class="categoria-item">LORO</div>
+        <div class="categoria-item" style="color: #ff0000; font-weight: 800;">🔥 OFERTAS</div>
+    </div>
+
+    <div class="banner-pequeno-horizontal">
+        <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1000" alt="Promoción Perros">
+    </div>
+
+    <div class="container" style="margin-top: 40px; min-height: 600px; width: 90%; margin-left: auto; margin-right: auto;">
+        <div class="section-header">
+            <h1>🐶 SECCIÓN PARA PERROS</h1>
+            <p>Todo lo que tu fiel compañero necesita en un solo lugar</p>
+        </div>
+       <div class="categorias-visuales" style="text-align: center; margin-top: 20px;">
+    <h2 style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 2rem; margin-bottom: 30px;">Juguetes para Perros</h2>
+    
+    <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-bottom: 50px;">
+        
+        <a href="mordederos.html" style="text-decoration: none; color: inherit;">
+            <div style="text-align: center; width: 150px; cursor: pointer;">
+                <div style="width: 150px; height: 150px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 15px; overflow: hidden; transition: transform 0.3s ease;">
+                    <img src="hueso mediano .png" style="width: 80%; height: auto;" alt="Mordederos">
+                </div>
+                <p style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 14px; text-transform: uppercase;">Mordederos</p>
+            </div>
+        </a>
+
+        <a href="pelotas.html" style="text-decoration: none; color: inherit;">
+            <div style="text-align: center; width: 150px; cursor: pointer;">
+                <div style="width: 150px; height: 150px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 15px; overflow: hidden; transition: transform 0.3s ease;">
+                    <img src="PLACAAA.png" style="width: 80%; height: auto;" alt="Pelotas">
+                </div>
+                <p style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 14px; text-transform: uppercase;">Pelotas</p>
+            </div>
+        </a>
+
+        <a href="peluches.html" style="text-decoration: none; color: inherit;">
+            <div style="text-align: center; width: 150px; cursor: pointer;">
+                <div style="width: 150px; height: 150px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 15px; overflow: hidden; transition: transform 0.3s ease;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3047/3047928.png" style="width: 70%; height: auto;" alt="Peluches">
+                </div>
+                <p style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 14px; text-transform: uppercase;">Peluches</p>
+            </div>
+        </a>
+
+        <a href="lazos.html" style="text-decoration: none; color: inherit;">
+            <div style="text-align: center; width: 150px; cursor: pointer;">
+                <div style="width: 150px; height: 150px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 15px; overflow: hidden; transition: transform 0.3s ease;">
+                    <img src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=200" style="width: 100%; height: 100%; object-fit: cover;" alt="Lazos">
+                </div>
+                <p style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 14px; text-transform: uppercase;">Lazos y Sogas</p>
+            </div>
+        </a>
+
+    </div>
+</div>
+    </div>
+</div>
+
+        <div class="productos-grid" id="grid-productos">
+            <div class="producto-card">
+                <a href="DETALLE-PECHERA.HTML" class="producto-img-link">
+                    <div class="producto-img"><img src="https://images.unsplash.com/photo-1591768575198-88dac53fbd0a?w=400" alt="Pechera"></div>
+                </a>
+                <div class="producto-info">
+                    <span class="etiqueta-azul">Accesorio</span>
+                    <h3>Pechera Acolchada</h3>
+                    <span class="precio">$45.000</span>
+                    <div class="controles-cantidad">
+                        <button class="btn-cant" onclick="ajustarCant(this, -1)">-</button>
+                        <input type="number" class="input-cant" value="1" min="1">
+                        <button class="btn-cant" onclick="ajustarCant(this, 1)">+</button>
+                    </div>
+                    <button class="btn-comprar btn-verde" onclick="sumarPedido('Pechera Acolchada', 45000, this)">Comprar</button>
+                </div>
+            </div>
+
+            <div class="producto-card">
+                <a href="DETALLE-SNACKS.HTML" class="producto-img-link">
+                    <div class="producto-img"><img src="1d.png" alt="Snacks"></div>
+                </a>
+                <div class="producto-info">
+                    <span class="etiqueta-azul">Snacks</span>
+                    <h3>Galletas Naturales</h3>
+                    <span class="precio">$12.500</span>
+                    <div class="controles-cantidad">
+                        <button class="btn-cant" onclick="ajustarCant(this, -1)">-</button>
+                        <input type="number" class="input-cant" value="1" min="1">
+                        <button class="btn-cant" onclick="ajustarCant(this, 1)">+</button>
+                    </div>
+                    <button class="btn-comprar btn-verde" onclick="sumarPedido('Galletas Naturales', 12500, this)">Comprar</button>
+                </div>
+            </div>
+
+            <div class="producto-card">
+                <a href="DETALLE-CHAMPU.HTML" class="producto-img-link">
+                    <div class="producto-img"><img src="verde.png" alt="Aseo"></div>
+                </a>
+                <div class="producto-info">
+                    <span class="etiqueta-azul">Higiene</span>
+                    <h3>Champú Antipulgas</h3>
+                    <span class="precio">$28.000</span>
+                    <div class="controles-cantidad">
+                        <button class="btn-cant" onclick="ajustarCant(this, -1)">-</button>
+                        <input type="number" class="input-cant" value="1" min="1">
+                        <button class="btn-cant" onclick="ajustarCant(this, 1)">+</button>
+                    </div>
+                    <button class="btn-comprar btn-verde" onclick="sumarPedido('Champú Antipulgas', 28000, this)">Comprar</button>
+                </div>
+            </div>
+
+            <div class="producto-card">
+                <a href="#" class="producto-img-link">
+                    <div class="producto-img"><img src="PLACAAA.png" alt="Juguete"></div>
+                </a>
+                <div class="producto-info">
+                    <span class="etiqueta-azul">Juguetes</span>
+                    <h3>Pelota Resistente</h3>
+                    <span class="precio">$15.000</span>
+                    <div class="controles-cantidad">
+                        <button class="btn-cant" onclick="ajustarCant(this, -1)">-</button>
+                        <input type="number" class="input-cant" value="1" min="1">
+                        <button class="btn-cant" onclick="ajustarCant(this, 1)">+</button>
+                    </div>
+                    <button class="btn-comprar btn-verde" onclick="sumarPedido('Pelota Resistente', 15000, this)">Comprar</button>
+                </div>
+            </div>
+
+            <div class="producto-card"><div class="producto-img"><img src="hueso mediano .png"></div><div class="producto-info"><h3>Hueso Mediano</h3><span class="precio">$15.000</span><button class="btn-comprar btn-verde" onclick="sumarPedido('Hueso Mediano', 15000, this)">Comprar</button></div></div>
+            <div class="producto-card"><div class="producto-img"><img src="hueso hh.png"></div><div class="producto-info"><h3>Juguete Hueso HH</h3><span class="precio">$15.000</span><button class="btn-comprar btn-verde" onclick="sumarPedido('Juguete Hueso HH', 15000, this)">Comprar</button></div></div>
+            <div class="producto-card"><div class="producto-img"><img src="https://images.unsplash.com/photo-1623944889288-cd147dbb517c?w=400"></div><div class="producto-info"><h3>Bebedero Portátil</h3><span class="precio">$25.000</span><button class="btn-comprar btn-verde" onclick="sumarPedido('Bebedero Portátil', 25000, this)">Comprar</button></div></div>
+            <div class="producto-card"><div class="producto-img"><img src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=400"></div><div class="producto-info"><h3>Mordedor de Cuerda</h3><span class="precio">$12.000</span><button class="btn-comprar btn-verde" onclick="sumarPedido('Mordedor de Cuerda', 12000, this)">Comprar</button></div></div>
+
+        </div>
+
+        <div class="contenedor-boton-cargar">
+            <button id="btnCargar" class="btn-cargar-mas" onclick="cargarMas()">CARGAR MÁS PRODUCTOS</button>
+        </div>
+    </div>
+
+    <footer id="contacto">
+        <h2>SÍGUENOS Y VISÍTANOS</h2>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/yakomundodemascotas/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/573224022039" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+        
+        <div class="direccion-box">
+            <p><i class="fas fa-map-marker-alt"></i> <strong>DIRECCIÓN:</strong> Calle 15 #13a-11, Chía, Cundinamarca</p>
+            <p><i class="fas fa-phone"></i> <strong>TELÉFONO:</strong> +57 322 402 2039</p>
+            <a href="https://maps.google.com" target="_blank" class="btn-maps">
+                <i class="fas fa-route"></i> VER EN GOOGLE MAPS
+            </a>
+        </div>
+
+        <div class="seccion-pagos">
+            <div class="titulo-pagos" style="color:white; margin-bottom:15px; font-size:14px;">MÉTODOS DE PAGO</div>
+            <div class="iconos-pagos-container">
+                <img src="https://images.crunchbase.com/image/upload/c_pad,h_170,w_170,f_auto,g_faces,z_1,q_auto:eco,dpr_1/pzkswubv6wntjym1u7x6" alt="Nequi" class="pago-logo">
+                <img src="daviplata.png" alt="Daviplata" class="pago-logo">
+                <img src="https://llave.com.co/wp-content/uploads/2023/06/Logo-Llave-Vertical.png" alt="Llave" class="pago-logo" style="background: white; padding: 2px; border-radius: 5px;">
+                <div class="pago-efectivo">
+                    <i class="fas fa-money-bill-wave" style="font-size:24px; color:#4CAF50;"></i>
+                    <span>EFECTIVO</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="modal-carrito" class="modal-carrito-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🛒 Tu Pedido</h3>
+                <button onclick="toggleCart()" style="background:none; border:none; font-size:25px; cursor:pointer;">×</button>
+            </div>
+            <div id="lista-carrito" style="flex-grow:1; overflow-y:auto;"></div>
+            <div class="modal-footer">
+                <p>Total: <strong>$<span id="total-modal">0</span></strong></p>
+                <button class="btn-comprar btn-verde" style="width:100%; margin-bottom:10px;" onclick="enviarWhatsApp()">Pedir por WhatsApp</button>
+                <button onclick="vaciarCarrito()" style="width:100%; background:#999; color:white; border:none; padding:10px; border-radius:5px; cursor:pointer;">Vaciar Carrito</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let carrito = [];
+        let cuentaTotal = 0;
+        let cantidadProductos = 0;
+        
+        let productosVisibles = 4;
+        const incremento = 4;
+
+        function actualizarVisibilidad() {
+            const cards = document.querySelectorAll('.producto-card');
+            cards.forEach((card, index) => {
+                if (index < productosVisibles) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (productosVisibles >= cards.length) {
+                document.getElementById('btnCargar').style.display = 'none';
+            }
+        }
+
+        function cargarMas() {
+            productosVisibles += incremento;
+            actualizarVisibilidad();
+        }
+
+        window.onload = function() {
+            const memoria = localStorage.getItem('carritoYako');
+            if (memoria) {
+                carrito = JSON.parse(memoria);
+                actualizarTodo();
+            }
+            actualizarVisibilidad();
+        };
+
+        function guardarMemoria() {
+            localStorage.setItem('carritoYako', JSON.stringify(carrito));
+            actualizarTodo();
+        }
+
+        function actualizarTodo() {
+            cuentaTotal = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
+            cantidadProductos = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+            document.getElementById('count').innerText = cantidadProductos;
+            document.getElementById('total').innerText = cuentaTotal.toLocaleString('es-CO');
+        }
+
+        function ajustarCant(btn, cambio) {
+            const input = btn.parentElement.querySelector('.input-cant');
+            let valor = parseInt(input.value) + cambio;
+            if (valor < 1) valor = 1;
+            input.value = valor;
+        }
+
+        function sumarPedido(nombre, precio, btn) {
+            const input = btn.parentElement.querySelector('.input-cant') || {value: 1};
+            const cantidad = parseInt(input.value);
+            const card = btn.closest('.producto-card');
+            const imagen = card.querySelector('img').src;
+            
+            const index = carrito.findIndex(item => item.nombre === nombre);
+            if (index > -1) {
+                carrito[index].cantidad += cantidad;
+            } else {
+                carrito.push({ nombre, precio, imagen, cantidad });
+            }
+            
+            guardarMemoria();
+            // Ya no hay alert aquí
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('modal-carrito');
+            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+            if (modal.style.display === 'flex') actualizarModal();
+        }
+
+        function actualizarModal() {
+            const lista = document.getElementById('lista-carrito');
+            lista.innerHTML = '';
+            carrito.forEach((prod, index) => {
+                lista.innerHTML += `
+                    <div class="item-carrito" style="display:flex; align-items:center; gap:10px; margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">
+                        <img src="${prod.imagen}" style="width:50px; height:50px; object-fit:cover; border-radius:5px;">
+                        <div style="flex:1">
+                            <strong>${prod.nombre}</strong><br>
+                            ${prod.cantidad} x $${prod.precio.toLocaleString('es-CO')}
+                        </div>
+                        <button onclick="eliminarItem(${index})" style="border:none; background:none; color:red; cursor:pointer;"><i class="fas fa-trash"></i></button>
+                    </div>`;
+            });
+            document.getElementById('total-modal').innerText = cuentaTotal.toLocaleString('es-CO');
+        }
+
+        function eliminarItem(index) {
+            carrito.splice(index, 1);
+            guardarMemoria();
+            actualizarModal();
+        }
+
+        function vaciarCarrito() {
+            // Ya no hay confirmación aquí, se vacía directamente
+            carrito = [];
+            guardarMemoria();
+            actualizarModal();
+        }
+
+        function enviarWhatsApp() {
+            if(carrito.length === 0) return alert("El carrito está vacío");
+            let mensaje = "¡Hola Yako Mundo Mascotas! Quiero este pedido:%0A%0A";
+            carrito.forEach(item => {
+                mensaje += `• ${item.nombre} (x${item.cantidad}) - $${(item.precio * item.cantidad).toLocaleString('es-CO')}%0A`;
+            });
+            mensaje += `%0A*TOTAL: $${cuentaTotal.toLocaleString('es-CO')}*%0A%0AMétodo de pago: (Nequi/Daviplata/Llave/Efectivo)`;
+            window.open(`https://wa.me/573224022039?text=${mensaje}`, '_blank');
+            
+        }
+    </script>
+</body>
+</html>
